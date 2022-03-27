@@ -30,15 +30,28 @@ async function run() {
     var data = fs.readFileSync(specFile.srcFullPath, 'utf8');
     let name = '';
     let version = '';
+    let alias = {};
 
     for (var line of data.split('\n')){
         var lineArray = line.split(/[ ]+/);
+        if(lineArray[0].includes('define')) {
+          alias['%'+lineArray[1]] = lineArray[2];
+          console.log(`define ${lineArray[1]} = [${lineArray[2]}]`);
+        }
         if(lineArray[0].includes('Name')){
             name = name+lineArray[1];
         }
         if(lineArray[0].includes('Version')){
             version = version+lineArray[1];
         }
+    }
+    if(name.startsWith('%')) {
+      console.log(`looking up [${name}]`);
+      name = alias[name];
+    }
+    if(version.startsWith('%')) {
+      console.log(`looking up [${version}]`);
+      version = alias[version];
     }
     console.log(`name: ${name}`);
     console.log(`version: ${version}`);
