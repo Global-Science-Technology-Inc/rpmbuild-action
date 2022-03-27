@@ -44,7 +44,7 @@ jobs:
 
     - name: build RPM package
       id: rpm
-      uses: global-science-technology-inc/rpmbuild@master
+      uses: global-science-technology-inc/rpmbuild-action@main
       with:
         spec_file: "cello.spec"
 
@@ -98,7 +98,7 @@ jobs:
 
         - name: build RPM package
           id: rpm_build
-          uses: global-science-technology-inc/rpmbuild@master
+          uses: global-science-technology-inc/rpmbuild-action@main
           with:
               spec_file: "cello.spec"
 
@@ -122,8 +122,8 @@ Example Repository which uses rpmbuild action https://github.com/global-science-
 
 Note on distribution:
 If your RPMs are distribution specific like el7 or el8.
-- Use global-science-technology-inc/rpmbuild@master for Centos7 *[el7]*
-- Use global-science-technology-inc/rpmbuild@centos8 for Centos8 *[el8]*
+- Use global-science-technology-inc/rpmbuild-action@main for Centos7 *[el7]*
+- Use global-science-technology-inc/rpmbuild-action@centos8 for Centos8 *[el8]*
 
 ```yaml
 - name: build RPM package
