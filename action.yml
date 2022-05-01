@@ -1,6 +1,6 @@
 name: 'RPM Build'
 description: 'Build RPMs from spec file and upload it as Artifact or Release Asset'
-author: 'Naveenraj M'
+author: 'Carl Nygard'
 
 inputs:
   spec_file:
@@ -22,7 +22,7 @@ outputs:
 
 runs:
   using: 'docker'
-  image: 'ghcr.io/global-science-technology-inc/rpmbuild-action:main'
+  image: 'docker://ghcr.io/global-science-technology-inc/rpmbuild-action:main'
 
 branding:
   icon: 'package'
