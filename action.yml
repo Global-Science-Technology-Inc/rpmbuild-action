@@ -22,7 +22,8 @@ outputs:
 
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/global-science-technology-inc/rpmbuild-action:main'
+  image: Dockerfile
+#  image: 'docker://ghcr.io/global-science-technology-inc/rpmbuild-action:main'
 
 branding:
   icon: 'package'
