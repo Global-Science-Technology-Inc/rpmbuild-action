@@ -62,11 +62,19 @@ async function run() {
     // Copy spec file from path specFile to /github/home/rpmbuild/SPECS/
     await exec.exec(`cp ${specFile.srcFullPath} ${specFile.destFullPath}`);
 
+    const tarball = `${name}-${version}.tar.gz`;
+
     // Make the code in /github/workspace/ into a tar.gz, located in /github/home/rpmbuild/SOURCES/
-    const oldGitDir = process.env.GIT_DIR;
-    process.env.GIT_DIR = '/github/workspace/.git';
-    await exec.exec(`git archive --output=/github/home/rpmbuild/SOURCES/${name}-${version}.tar.gz --prefix=${name}-${version}/ HEAD`);
-    process.env.GIT_DIR = oldGitDir;
+    if(fs.existsSync(`/github/workspace/${tarball}`)) {
+      console.log(`tarball [${tarball}] exists... copying...`)
+      await exec.exec(`cp ${tarball} /github/home/rpmbuild/SOURCES`);
+    }else{
+      console.log(`building tarball [${tarball}] from git archive...`)
+      const oldGitDir = process.env.GIT_DIR;
+      process.env.GIT_DIR = '/github/workspace/.git';
+      await exec.exec(`git archive --output=/github/home/rpmbuild/SOURCES/${tarball} --prefix=${name}-${version}/ HEAD`);
+      process.env.GIT_DIR = oldGitDir;
+    }
 
     // Verify source tarball is created
     await exec.exec('ls /github/home/rpmbuild/SOURCES');
