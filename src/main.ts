@@ -156,7 +156,9 @@ export async function run(): Promise<void> {
       `cp ${workspacePath}/home/rpmbuild/SRPMS/${myOutput} rpmbuild/SRPMS`
     );
     // Not sure why this was using cp (child_process)
-    await exec.exec(`cp -R ${workspacePath}/home/rpmbuild/RPMS/. rpmbuild/RPMS/`);
+    await exec.exec(
+      `cp -R ${workspacePath}/home/rpmbuild/RPMS/. rpmbuild/RPMS/`
+    );
 
     await exec.exec(`ls -la rpmbuild/SRPMS`);
     await exec.exec(`ls -la rpmbuild/RPMS`);
@@ -172,7 +174,7 @@ export async function run(): Promise<void> {
     if (error instanceof Error) {
       core.debug(error.message);
       core.setFailed(error.message);
-    }else {
+    } else {
       const msg: string = getErrorMessage(error);
       core.debug(msg);
       core.setFailed(msg);

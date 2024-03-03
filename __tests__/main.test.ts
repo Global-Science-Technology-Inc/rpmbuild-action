@@ -76,8 +76,8 @@ describe('action', () => {
         'application/octet-stream'
       );
     }
-      expect(errorMock).not.toHaveBeenCalled();
-      expect(setFailedMock).not.toHaveBeenCalled();
+    expect(errorMock).not.toHaveBeenCalled();
+    expect(setFailedMock).not.toHaveBeenCalled();
   });
 
   it('throws exception on bad spec file', async () => {
