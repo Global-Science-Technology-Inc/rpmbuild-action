@@ -2,10 +2,12 @@
 FROM rockylinux:8.9
 
 # Copying all contents of rpmbuild repo inside container
+# hadolint disable=DL3045
 COPY . .
 
 # Installing tools needed for rpmbuild ,
 # depends on BuildRequires field in specfile, (TODO: take as input & install)
+# hadolint disable=DL3041
 RUN dnf install -y --allowerasing \
   curl \
   tar \
@@ -27,7 +29,7 @@ RUN curl -O https://nodejs.org/dist/$NODE_VER/$NODE_PKG \
   && rm $NODE_PKG
 
 # Install dependecies and build main.js
-RUN npm install --production \
+RUN npm install \
 && npm run-script build
 
 # All remaining logic goes inside main.js ,

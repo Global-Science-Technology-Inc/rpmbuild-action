@@ -10,6 +10,7 @@ Thumbs.db
 # typescript gets compiled to js and placed under lib/
 # if you build locally, don't let you commit it
 lib/
+dist/
 
 # Dependency directory
 node_modules

@@ -38,5 +38,7 @@ describe('index', () => {
     require('../src/index');
 
     expect(runMock).toHaveBeenCalled();
+    expect(debugMock).toHaveBeenCalled()
+    expect(errorMock).not.toHaveBeenCalled()
   });
 });

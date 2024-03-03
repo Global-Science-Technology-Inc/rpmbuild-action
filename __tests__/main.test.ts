@@ -32,7 +32,7 @@ describe('action', () => {
   });
 
   it('starts processing', async () => {
-    const specFile: string = 'metlab-yum.spec';
+    const specFile = 'metlab-yum.spec';
     // Set the action's inputs as return values from core.getInput()
     getInputMock.mockImplementation(name => {
       core.debug(`main: Returning value [${specFile}] for [${name}] `);
@@ -57,7 +57,8 @@ describe('action', () => {
       7,
       `path: [${specFile}]  spec: [${specFile}]`
     );
-    if (false) {
+    const hide: number = 1;
+    if (hide != 0) {
       expect(debugMock).toHaveBeenNthCalledWith(21, 'name: [metlab-yum]');
       expect(setOutputMock).toHaveBeenNthCalledWith(
         1,
@@ -74,13 +75,14 @@ describe('action', () => {
         'rpm_conatent_type',
         'application/octet-stream'
       );
-      expect(errorMock).not.toHaveBeenCalled();
     }
+      expect(errorMock).not.toHaveBeenCalled();
+      expect(setFailedMock).not.toHaveBeenCalled();
   });
 
   it('throws exception on bad spec file', async () => {
     // Set the action's inputs as return values from core.getInput()
-    const specFile: string = 'bad_file.spec';
+    const specFile = 'bad_file.spec';
     getInputMock.mockImplementation(name => {
       core.debug(`main: Returning value [${specFile}] for [${name}] `);
       switch (name) {

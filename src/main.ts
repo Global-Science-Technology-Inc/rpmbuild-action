@@ -31,8 +31,12 @@ function toErrorWithMessage(maybeError: unknown): ErrorWithMessage {
   }
 }
 
-function getErrorMessage(error: unknown) {
+function getErrorMessage(error: unknown): string {
   return toErrorWithMessage(error).message;
+}
+
+function makeLabel(label: string): string {
+  return `%${label}`;
 }
 
 /**
@@ -57,15 +61,16 @@ export async function run(): Promise<void> {
     };
 
     // Read spec file and get values
-    let data = fs.readFileSync(specFile.srcFullPath, 'utf8');
+    const data = fs.readFileSync(specFile.srcFullPath, 'utf8');
     let name = '';
     let version = '';
-    let alias = {};
+    const alias = {};
 
-    for (let line of data.split('\n')) {
-      let lineArray = line.split(/[ ]+/);
+    for (const line of data.split('\n')) {
+      const lineArray = line.split(/[ ]+/);
       if (lineArray[0].includes('define')) {
-        alias['%' + lineArray[1]] = lineArray[2];
+        const label = makeLabel(lineArray[1]);
+        alias[label] = lineArray[2];
         core.debug(`define ${lineArray[1]} = [${lineArray[2]}]`);
       }
       if (lineArray[0].includes('Name')) {
@@ -127,7 +132,7 @@ export async function run(): Promise<void> {
 
     // Get source rpm name , to provide file name, path as output
     let myOutput = '';
-    await cp.exec(
+    cp.exec(
       `ls ${workspacePath}/home/rpmbuild/SRPMS/`,
       (err, stdout, stderr) => {
         if (err) {
@@ -150,7 +155,8 @@ export async function run(): Promise<void> {
     await exec.exec(
       `cp ${workspacePath}/home/rpmbuild/SRPMS/${myOutput} rpmbuild/SRPMS`
     );
-    await cp.exec(`cp -R ${workspacePath}/home/rpmbuild/RPMS/. rpmbuild/RPMS/`);
+    // Not sure why this was using cp (child_process)
+    await exec.exec(`cp -R ${workspacePath}/home/rpmbuild/RPMS/. rpmbuild/RPMS/`);
 
     await exec.exec(`ls -la rpmbuild/SRPMS`);
     await exec.exec(`ls -la rpmbuild/RPMS`);
@@ -166,6 +172,10 @@ export async function run(): Promise<void> {
     if (error instanceof Error) {
       core.debug(error.message);
       core.setFailed(error.message);
+    }else {
+      const msg: string = getErrorMessage(error);
+      core.debug(msg);
+      core.setFailed(msg);
     }
   }
 }

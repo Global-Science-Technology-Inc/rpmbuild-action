@@ -58,7 +58,3 @@ jobs:
         uses: ./
         with:
           spec_file: ./__fixtures__/workspace/metlab-yum.spec
-
-      - name: Print Output
-        id: output
-        run: echo "${{ steps.test-action.outputs.time }}"
