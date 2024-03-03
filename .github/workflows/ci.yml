@@ -57,7 +57,7 @@ jobs:
         id: test-action
         uses: ./
         with:
-          milliseconds: 2000
+          spec_file: ./__fixtures__/workspace/metlab-yum.spec
 
       - name: Print Output
         id: output
