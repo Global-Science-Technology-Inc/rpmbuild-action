@@ -1,3 +1,4 @@
+#checkov:skip=CKV2_GHA_1
 name: Docker image Snapshot
 on:
   push:
@@ -13,7 +14,6 @@ env:
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
-#checkov:skip=CKV2_GHA_1
     permissions:
       contents: read
       packages: write
