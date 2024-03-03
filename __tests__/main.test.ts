@@ -57,8 +57,8 @@ describe('action', () => {
       7,
       `path: [${specFile}]  spec: [${specFile}]`
     );
-    const hide: number = 1;
-    if (hide != 0) {
+    const hide = 1;
+    if (hide !== 1) {
       expect(debugMock).toHaveBeenNthCalledWith(21, 'name: [metlab-yum]');
       expect(setOutputMock).toHaveBeenNthCalledWith(
         1,
