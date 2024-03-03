@@ -1,13 +1,15 @@
+#checkov:skip=CKV_DOCKER_2
+#checkov:skip=CKV_DOCKER_3
 # Using Rocky Linux 8.x as base image to support rpmbuild
 FROM rockylinux:8.9
 
 # Copying all contents of rpmbuild repo inside container
-# hadolint disable=DL3045
+# hadolint ignore=DL3045
 COPY . .
 
 # Installing tools needed for rpmbuild ,
 # depends on BuildRequires field in specfile, (TODO: take as input & install)
-# hadolint disable=DL3041
+# hadolint ignore=DL3041
 RUN dnf install -y --allowerasing \
   curl \
   tar \

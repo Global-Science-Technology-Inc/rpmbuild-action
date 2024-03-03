@@ -3,7 +3,6 @@
 This GitHub Action builds RPMs from spec file and using repository contents as source (wraps the rpmbuild utility).
 Integrates easily with GitHub actions to allow RPMS to be uploaded as Artifact (actions/upload-artifact) or as Release Asset (actions/upload-release-asset).
 
-
 ## Usage
 
 ### Pre-requisites
@@ -13,7 +12,6 @@ An [example workflow](#example-workflow---build-rpm) is available below.
 For more information, reference the GitHub Help Documentation for [Creating a workflow file](https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file).
 
 **Note:** You need to have a spec file in order to build RPM.
-
 
 ### Inputs
 
@@ -32,11 +30,13 @@ This generated RPMS and SRPMS can be used in two ways.
 1. Upload as build artifact
     You can use GitHub Action [`@actions/upload-artifact`](https://www.github.com/actions/upload-artifact)
 1. Upload as Release assest
-    If you want to upload as release asset ,You also will need to have a release to upload your asset to, which could be created programmatically by [`@actions/create-release`](https://www.github.com/actions/create-release) as show in the example workflow.
+    If you want to upload as release asset, you also will need to have a release to upload your asset to.
+    This could be created programmatically by [`@actions/create-release`](https://www.github.com/actions/create-release) as shown in the example workflow.
 
 ### Example workflow - build RPM
 
 Basic:
+
 ```yaml
 name: RPM Build
 on: push
@@ -59,6 +59,7 @@ jobs:
         name: Binary RPM
         path: ${{ steps.rpm.outputs.rpm_dir_path }}
 ```
+
 This workflow triggered on every `push`, builds RPM and Source RPM using cello.spec and contents of that git ref that triggered that action.
 Contents are retrived through [GitHub API](https://developer.github.com/v3/repos/contents/#get-archive-link) [downloaded through archive link].
 The generated RPMs or SRPMS can be uploaded as artifacts by using actions/upload-artifact.
@@ -69,6 +70,7 @@ The [outputs](#outputs) given by rpmbuild action can be used to specify path for
 ![artifact_image](assets/upload_artifacts.png)
 
 Use with Release:
+
 ```yaml
 on:
     push:
@@ -92,7 +94,8 @@ jobs:
           id: create_release
           uses: actions/create-release@latest
           env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+              # This token is provided by Actions, you do not need to create your own token
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
               tag_name: ${{ github.ref }}
               release_name: Release ${{ github.ref }}
@@ -115,7 +118,9 @@ jobs:
           env:
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
-              upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+              # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`.
+              # See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+              upload_url: ${{ steps.create_release.outputs.upload_url }}
               asset_path: ${{ steps.rpm_build.outputs.source_rpm_path }}
               asset_name: ${{ steps.rpm_build.outputs.source_rpm_name }}
               asset_content_type: ${{ steps.rpm_build.outputs.rpm_content_type }}
@@ -125,7 +130,7 @@ jobs:
 
 ![artifact_image](assets/upload_release_asset.png)
 
-Example Repository which uses rpmbuild action https://github.com/global-science-technology-inc/cextract
+Example Repository which uses [rpmbuild action](https://github.com/global-science-technology-inc/cextract)
 
 Note on distribution:
 If your RPMs are distribution specific like el7 or el8.
@@ -155,4 +160,4 @@ Feel free to contribute to this project. Read [CONTRIBUTING Guide](CONTRIBUTING.
 
 The scripts and documentation in this project are released under the [GNU GPLv3](LICENSE)
 
-forked from https://github.com/naveenrajm7/rpmbuild
+forked from [this repository](https://github.com/naveenrajm7/rpmbuild)

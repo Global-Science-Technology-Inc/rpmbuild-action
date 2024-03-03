@@ -9,7 +9,6 @@ Use your best judgment, and feel free to propose changes to this document in a p
 
 # Table Of Contents
 
-
 [What should I know before I get started?](#what-should-i-know-before-i-get-started)
 
 - [rpmbuild](#rpmbuild)
@@ -19,10 +18,9 @@ Use your best judgment, and feel free to propose changes to this document in a p
 
 - [Reporting Bugs](#reporting-bugs)
 - [Suggesting Enhancements](#suggesting-enhancements)
-- [Pull Requests](#pull-requests)
+- [Pull Requests](#submitting-a-pull-request)
 
 [Resources](#resources)
-
 
 ## What should I know before I get started?
 
