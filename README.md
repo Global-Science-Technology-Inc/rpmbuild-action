@@ -1,5 +1,11 @@
 # GitHub Action - RPM Build
 
+[![GitHub Super-Linter](https://github.com/global-science-technology-inc/rpmbuild-action/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter)
+![CI](https://github.com/global-science-technology-inc/rpmbuild-action/actions/workflows/ci.yml/badge.svg)
+[![Check dist/](https://github.com/global-science-technology-inc/rpmbuild-action/actions/workflows/check-dist.yml/badge.svg)](https://github.com/global-science-technology-inc/rpmbuild-action/actions/workflows/check-dist.yml)
+[![CodeQL](https://github.com/global-science-technology-inc/rpmbuild-action/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/global-science-technology-inc/rpmbuild-action/actions/workflows/codeql-analysis.yml)
+[![Coverage](./badges/coverage.svg)](./badges/coverage.svg)
+
 This GitHub Action builds RPMs from spec file and using repository contents as source (wraps the rpmbuild utility).
 Integrates easily with GitHub actions to allow RPMS to be uploaded as Artifact (actions/upload-artifact) or as Release Asset (actions/upload-release-asset).
 
